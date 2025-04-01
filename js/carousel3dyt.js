@@ -1,6 +1,10 @@
 /**carousel3dYtv4mp**/
 
 function Carousel3Dspirale() {
+	const YT_API_KEY = document.createElement('script');
+	YT_API_KEY.src = "./config.js";
+	document.head.appendChild(YT_API_KEY);
+	
 	let xhr,plitems,cellWidth,cellHeight,cells,menuplaylist,oldplayid,playid,datatoken,cellCount,verif,timeout,link,iframeparent,celliframe,iframecache,btnmute,timelineContainer,currentTimeElem,wasPaused,cellIndex,minilecteurindex,totalcellCount,cumulcells,changetotal,videovue,ctp,counter,countrotate,scells;
 	let isScrubbing = false;
 	let valtimer = 0;
@@ -30,7 +34,6 @@ function Carousel3Dspirale() {
 	let playercell = null;
 	let pos = [0,0],direction = 'normal';
 	let rcells = [];
-	const YT_API_KEY;
 	window.oldcellcellIndex = 0;
 	window.globalvolume = 100;
 	window.globalmute = false;
@@ -1645,9 +1648,6 @@ function Carousel3Dspirale() {
 	};
 	
 	(function playList() {
-		YT_API_KEY = document.createElement('script');
-		YT_API_KEY.src = "./config.js";
-		document.head.appendChild(YT_API_KEY);
 		const carouselwrapper = document.getElementById('carousel-wrapper');
 		const dataplaylist = addPlaylist();
 		let htmlpl = '';
