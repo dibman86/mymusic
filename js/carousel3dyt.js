@@ -147,8 +147,8 @@ function Carousel3Dspirale() {
 
 	function loadVids(playlistId, token, videoid) {
 		if (!token) token = '';
-		if(!API_KEY) loadkey();
 		YT_API_KEY.onload = function() {
+			if(!API_KEY) loadkey();
 			console.log(API_KEY)
 			const key = API_KEY;
 			const url = 'https://www.googleapis.com/youtube/v3/playlistItems';
