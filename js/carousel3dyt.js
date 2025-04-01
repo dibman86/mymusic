@@ -1644,6 +1644,9 @@ function Carousel3Dspirale() {
 	};
 	
 	(function playList() {
+		const YT_API_KEY = document.createElement('script');
+		YT_API_KEY.src = "./config.js"; // Chargé par GitHub Actions
+		document.head.appendChild(YT_API_KEY);
 		const carouselwrapper = document.getElementById('carousel-wrapper');
 		const dataplaylist = addPlaylist();
 		let htmlpl = '';
