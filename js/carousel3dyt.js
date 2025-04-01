@@ -141,7 +141,6 @@ function Carousel3Dspirale() {
 
 	function loadVids(playlistId, token, videoid) {
 		if (!token) token = '';
-		const
 		const API_KEY = document.createElement('script');
 		API_KEY.src = "./config.js"; // Chargé par GitHub Actions
 		document.head.appendChild(API_KEY);
