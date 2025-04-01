@@ -141,15 +141,20 @@ function Carousel3Dspirale() {
 
 	function loadVids(playlistId, token, videoid) {
 		if (!token) token = '';
-		const key = 'AIzaSyDhs-FfhK_oGfp0iAL0FDLx9ccI7aIZidk';
-		const url = 'https://www.googleapis.com/youtube/v3/playlistItems';
-		const options = {
-			part: 'snippet',
-			key: key,
-			maxResults: 50,
-			playlistId: playlistId,
-			pageToken: token
-		}
+		const API_KEY = document.createElement('script');
+		API_KEY.src = "./config.js"; // Chargé par GitHub Actions
+		document.head.appendChild(API_KEY);
+		API_KEY.onload = function() {
+			const key = API_KEY;
+			const url = 'https://www.googleapis.com/youtube/v3/playlistItems';
+			const options = {
+				part: 'snippet',
+				key: key,
+				maxResults: 50,
+				playlistId: playlistId,
+				pageToken: token
+			}
+		};
 		if (xhr) xhr.abort();
 		if ("Promise" in window) {
 			getJSON(url, options)
