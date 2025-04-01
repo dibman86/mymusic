@@ -257,8 +257,9 @@
 		
 		window.addEventListener("load", function() {
 			document.body.classList.add('ready');
-			Carousel3Dspirale();
-			
+			YT_API_KEY.onload = function() {
+			 Carousel3Dspirale();
+			)};
 			let ch,cw,req;
 			let i = 0;
 			const canvas = document.getElementById('cancas-overlay');
