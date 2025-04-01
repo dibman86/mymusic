@@ -30,6 +30,7 @@ function Carousel3Dspirale() {
 	let playercell = null;
 	let pos = [0,0],direction = 'normal';
 	let rcells = [];
+	const YT_API_KEY;
 	window.oldcellcellIndex = 0;
 	window.globalvolume = 100;
 	window.globalmute = false;
@@ -1644,7 +1645,7 @@ function Carousel3Dspirale() {
 	};
 	
 	(function playList() {
-		const YT_API_KEY = document.createElement('script');
+		YT_API_KEY = document.createElement('script');
 		YT_API_KEY.src = "./config.js"; // Chargé par GitHub Actions
 		document.head.appendChild(YT_API_KEY);
 		const carouselwrapper = document.getElementById('carousel-wrapper');
