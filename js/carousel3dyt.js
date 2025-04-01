@@ -1,10 +1,6 @@
 /**carousel3dYtv4mp**/
 
 function Carousel3Dspirale() {
-	const YT_API_KEY = document.createElement('script');
-	YT_API_KEY.src = "./config.js";
-	document.head.appendChild(YT_API_KEY);
-	
 	let xhr,plitems,cellWidth,cellHeight,cells,menuplaylist,oldplayid,playid,datatoken,cellCount,verif,timeout,link,iframeparent,celliframe,iframecache,btnmute,timelineContainer,currentTimeElem,wasPaused,cellIndex,minilecteurindex,totalcellCount,cumulcells,changetotal,videovue,ctp,counter,countrotate,scells;
 	let isScrubbing = false;
 	let valtimer = 0;
@@ -145,91 +141,89 @@ function Carousel3Dspirale() {
 
 	function loadVids(playlistId, token, videoid) {
 		if (!token) token = '';
-		YT_API_KEY.onload = function() {
-			const key = API_KEY;
-			const url = 'https://www.googleapis.com/youtube/v3/playlistItems';
-			const options = {
-				part: 'snippet',
-				key: key,
-				maxResults: 50,
-				playlistId: playlistId,
-				pageToken: token
-			}
+		const key = API_KEY;
+		const url = 'https://www.googleapis.com/youtube/v3/playlistItems';
+		const options = {
+			part: 'snippet',
+			key: key,
+			maxResults: 50,
+			playlistId: playlistId,
+			pageToken: token
+		}
 		
-			if (xhr) xhr.abort();
-			if ("Promise" in window) {
-				getJSON(url, options)
-					.then(function(data) {
-						const dataitems = data.items;
-						const totalvideoplaylist = data.pageInfo.totalResults;
-						let cellnext;
-						if (data.nextPageToken) {
-							cellnext = data.nextPageToken;
-						}
+		if (xhr) xhr.abort();
+		if ("Promise" in window) {
+			getJSON(url, options)
+				.then(function(data) {
+					const dataitems = data.items;
+					const totalvideoplaylist = data.pageInfo.totalResults;
+					let cellnext;
+					if (data.nextPageToken) {
+						cellnext = data.nextPageToken;
+					}
 						
-						let find;
+					let find;
+					for(let i = 0; i < arraycells.length; i++) {
+						if(arraycells[i].index === playlistId && arraycells[i].id < parseInt(indexid)){
+							find = i;
+						}
+					}
+						
+					if (find){
+						if (totalvideoplaylist !== arraycells[find].tvp){
+							let newtotal = (totalvideoplaylist - arraycells[find].tvp);
+							dataitems.splice(0,newtotal);
+							changetotal = true;
+						}
+					}
+						
+					if(changetotal){
 						for(let i = 0; i < arraycells.length; i++) {
-							if(arraycells[i].index === playlistId && arraycells[i].id < parseInt(indexid)){
-								find = i;
+							if(arraycells[i].index === playlistId){
+								arraycells.splice(i,1);
 							}
 						}
+					}else{
+						arraycells.push({
+							'id': indexid,
+							'index': playlistId,
+							'nexttoken': cellnext,
+							'cells': dataitems,
+							'tvp': totalvideoplaylist
+						})
+					}
 						
-						if (find){
-							if (totalvideoplaylist !== arraycells[find].tvp){
-								let newtotal = (totalvideoplaylist - arraycells[find].tvp);
-								dataitems.splice(0,newtotal);
-								changetotal = true;
+					addCells(dataitems, playlistId, cellnext, indexid, videoid);
+					indexid++;
+				})
+				.catch(function(err) {
+					console.error('Augh, there was an error!', err);
+					removepopup();
+					if (err === 0) {
+						popupgenerate('Veuillez vérifier votre connexion réseau et réessayer.', true);
+						const reessayer = document.querySelector('.reessayer');
+						const reload = function(e) {
+							e.preventDefault();
+							e.stopPropagation();
+							if (!datatoken) {
+								removecells();
 							}
+							loadVids(playid,datatoken);
+						};
+						window.addEventListener('online', reload);
+						if (reessayer) {
+							reessayer.focus();
+							reessayer.addEventListener('click', reload);
 						}
-						
-						if(changetotal){
-							for(let i = 0; i < arraycells.length; i++) {
-								if(arraycells[i].index === playlistId){
-									arraycells.splice(i,1);
-								}
-							}
-						}else{
-							arraycells.push({
-								'id': indexid,
-								'index': playlistId,
-								'nexttoken': cellnext,
-								'cells': dataitems,
-								'tvp': totalvideoplaylist
-							})
-						}
-						
-						addCells(dataitems, playlistId, cellnext, indexid, videoid);
-						indexid++;
-					})
-					.catch(function(err) {
-						console.error('Augh, there was an error!', err);
-						removepopup();
-						if (err === 0) {
-							popupgenerate('Veuillez vérifier votre connexion réseau et réessayer.', true);
-							const reessayer = document.querySelector('.reessayer');
-							const reload = function(e) {
-								e.preventDefault();
-								e.stopPropagation();
-								if (!datatoken) {
-									removecells();
-								}
-								loadVids(playid,datatoken);
-							};
-							window.addEventListener('online', reload);
-							if (reessayer) {
-								reessayer.focus();
-								reessayer.addEventListener('click', reload);
-							}
-						} else if (err === 404) {
-							popupgenerate('Cette ressource n\'est plus disponible , veuillez sélectionner une autre playlist.');
-						} else {
-							popupgenerate('Un probleme est survenue , veuillez verifier votre connection ou essayer une autre playlist.');
-						}
-					});
-			}else{
-				popupgenerate('Votre navigateur est trop ancien pour faire fonctionner ce site.</br>Veuiller le changer pour un navigateur plus moderne.');
-			}
-		};
+					} else if (err === 404) {
+						popupgenerate('Cette ressource n\'est plus disponible , veuillez sélectionner une autre playlist.');
+					} else {
+						popupgenerate('Un probleme est survenue , veuillez verifier votre connection ou essayer une autre playlist.');
+					}
+				});
+		}else{
+			popupgenerate('Votre navigateur est trop ancien pour faire fonctionner ce site.</br>Veuiller le changer pour un navigateur plus moderne.');
+		}
 	};
 	
 	function getJSON(url, qs_params) {
