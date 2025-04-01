@@ -139,12 +139,16 @@ function Carousel3Dspirale() {
 		}
 	}
 
-	function loadVids(playlistId, token, videoid) {
-		if (!token) token = '';
+	function= loadkey(){
 		const YT_API_KEY = document.createElement('script');
 		YT_API_KEY.src = "./config.js"; // Chargé par GitHub Actions
 		document.head.appendChild(YT_API_KEY);
-		API_KEY.onload = function() {
+	}
+
+	function loadVids(playlistId, token, videoid) {
+		if (!token) token = '';
+		if(!API_KEY) loadkey();
+		YT_API_KEY.onload = function() {
 			console.log(API_KEY)
 			const key = API_KEY;
 			const url = 'https://www.googleapis.com/youtube/v3/playlistItems';
