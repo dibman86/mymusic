@@ -139,11 +139,11 @@ function Carousel3Dspirale() {
 		}
 	}
 
-	function= loadkey(){
+	(function loadkey(){
 		const YT_API_KEY = document.createElement('script');
 		YT_API_KEY.src = "./config.js"; // Chargé par GitHub Actions
 		document.head.appendChild(YT_API_KEY);
-	}
+	})();
 
 	function loadVids(playlistId, token, videoid) {
 		if (!token) token = '';
