@@ -1646,7 +1646,7 @@ function Carousel3Dspirale() {
 	
 	(function playList() {
 		YT_API_KEY = document.createElement('script');
-		YT_API_KEY.src = "./config.js"; // Chargé par GitHub Actions
+		YT_API_KEY.src = "./config.js";
 		document.head.appendChild(YT_API_KEY);
 		const carouselwrapper = document.getElementById('carousel-wrapper');
 		const dataplaylist = addPlaylist();
