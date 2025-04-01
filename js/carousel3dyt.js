@@ -145,6 +145,7 @@ function Carousel3Dspirale() {
 		API_KEY.src = "./config.js"; // Chargé par GitHub Actions
 		document.head.appendChild(API_KEY);
 		API_KEY.onload = function() {
+			console.log(API_KEY)
 			const key = API_KEY;
 			const url = 'https://www.googleapis.com/youtube/v3/playlistItems';
 			const options = {
