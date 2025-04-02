@@ -978,7 +978,7 @@ function Carousel3Dspirale() {
 				}
 			}
 			
-			if(searchlistvalue === ""){
+			if(searchlistvalue == ""){
 				cellIndex = window.oldcellcellIndex;
 				clearsearch.classList.remove("visibleclearsearch");
 				activesearch = false;
