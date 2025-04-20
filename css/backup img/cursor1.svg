@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 50 60">
+  <defs>
+    <radialGradient id="black-white-gradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="50%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#000000" />
+    </radialGradient>
+  </defs>
+  <path d="M 25 2 L 15 15 L 35 15 Z" fill="#ffffff" stroke="#000000" stroke-width="4"/>
+  <circle cx="25" cy="38" r="22" fill="url(#black-white-gradient)" />
+</svg>
+
