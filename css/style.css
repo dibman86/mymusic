@@ -3895,10 +3895,6 @@ kbd {
 }
 
 @media only screen and (max-width: 620px),(max-height: 450px) {
-	.container_qr .text_qr{
-		font-size: 3vw;
-	}
-	
 	.carousel__cell .btn_qr,
 	.carousel__cell .btn_qr:before,
 	.carousel__cell .btn-mute{
@@ -3912,6 +3908,10 @@ kbd {
 	
 	.carousel__cell .btn_qr{
 		font-size: 8px;
+	}
+	
+	.container_qr .text_qr{
+		font-size: 12px;
 	}
 	
 	.carousel__cell .btn_qr:before{
