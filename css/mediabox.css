@@ -1809,19 +1809,21 @@ input[type="range"]::-ms-track {
 	}
 	
 }
+
 @media screen and (orientation: landscape) and (max-height: 460px) {
 	.button-setting,.mini-lecteur{
 		top: 0;
 		bottom: 0;
 	}
 	.button-setting{
+		left:100%
+	}
+	.mini-lecteur{
 		left:-40px;
 		right: 100%;
 	}
-	.mini-lecteur{
-		left:100%
-	}
 }
+
 @supports (aspect-ratio: 16 / 9) {
 	.mediabox-content {
 		max-width: 80%;
