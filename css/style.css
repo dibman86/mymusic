@@ -1577,7 +1577,7 @@ footer a:focus {
 }
 
 .stop-scroll.minilecteur #searchbox{
-	top :5px!important;
+	top :5px;
 }
 
 .stop-scroll #searchbox{
@@ -3721,15 +3721,18 @@ kbd {
 }
 
 .minilecteur-container {
+	--calc: -webkit-calc(20% + 16px);
+	--calc: -moz-calc(20% + 16px);
+	--calc: calc(20% + 16px);
 	position: absolute;
-	bottom: -25%;
+	bottom: -webkit-calc(-1 * var(--calc));
+	bottom: -moz-calc(-1 * var(--calc));
+	bottom: calc(-1 * var(--calc));
 	left: 0;
 	right: 0;
 	margin: auto;
 	width: 70%;
-	height: -webkit-calc(20% + 16px);
-	height: -moz-calc(20% + 16px);
-	height: calc(20% + 16px);
+	height: var(--calc);
 	background: #000;
 	border: 2px solid #fff;
 	border-bottom: 14px solid #fff;;
@@ -4109,7 +4112,7 @@ kbd {
 	}
 	
 	.scene-loaded #searchbox.open{
-		top: 5px;
+		top: 5px!important;
 	}
 	
 	.no-mobile .stop-scroll.minilecteur .btn-up{
@@ -4157,6 +4160,9 @@ kbd {
 		width: 30vh;
 	}
 	
+	.stop-scroll.minilecteur #searchbox{
+		top :-100px;
+	}
 }
 
 /*
