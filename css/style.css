@@ -3935,43 +3935,6 @@ kbd {
 }
 
 @media only screen and (max-width: 620px) {
-	header .wrapper-title-perspectve{
-		display: block;
-		margin: 0 auto;
-		left: 0;
-		-webkit-perspective: initial;
-		-moz-perspective: initial;
-		perspective: initial;
-	}
-	
-	header .wrapper-title,#follow ul {
-		-webkit-transform: initial;
-		-moz-transform: initial;
-		-o-transform: initial;
-		transform: initial;
-	}
-
-	.wrapper-title #logo a span,
-	.wrapper-title #logo a:after {
-		text-shadow: none !important;
-	}
-
-	#follow {
-		position: relative;
-		top: 0;
-		right: 0;
-		text-align: center;
-	}
-	
-	#follow ul:before {
-		display: none;
-	}
-	
-	#follow li {
-		width: 30px;
-		height: 34px;
-	}
-
 	.playlist {
 		left: -80%;
 		width: 80%;
@@ -4061,6 +4024,44 @@ kbd {
 
 }
 
+@media only screen and (max-width: 460px) {
+	header .wrapper-title-perspectve{
+		display: block;
+		margin: 0 auto;
+		left: 0;
+		-webkit-perspective: initial;
+		-moz-perspective: initial;
+		perspective: initial;
+	}
+	
+	header .wrapper-title,#follow ul {
+		-webkit-transform: initial;
+		-moz-transform: initial;
+		-o-transform: initial;
+		transform: initial;
+	}
+
+	.wrapper-title #logo a span,
+	.wrapper-title #logo a:after {
+		text-shadow: none !important;
+	}
+
+	#follow {
+		position: relative;
+		top: 0;
+		right: 0;
+		text-align: center;
+	}
+	
+	#follow ul:before {
+		display: none;
+	}
+	
+	#follow li {
+		width: 30px;
+		height: 34px;
+	}
+}
 @media only screen and (max-height: 450px) {
 	.playlist,.title-right{
 		top :70px;
