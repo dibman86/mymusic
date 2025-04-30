@@ -1834,6 +1834,7 @@ footer a:focus {
 	border-radius: 0 100px 100px 0;
 	padding: 5px 10px;
 	overflow: hidden;
+	font-size: clamp(12px, 4vw, 16px);
 	white-space: nowrap;
 	-o-text-overflow: ellipsis;
 	text-overflow: ellipsis;
@@ -3981,7 +3982,6 @@ kbd {
 	}
 	
 	.playlist li a {
-		font-size: 4vw;
 		text-shadow: none;
 	}
 	
