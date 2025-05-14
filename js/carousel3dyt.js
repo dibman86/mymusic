@@ -144,7 +144,7 @@ function Carousel3Dspirale() {
 		const url = 'https://www.googleapis.com/youtube/v3/playlistItems';
 		const options = {
 			part: 'snippet',
-			key: API_KEY,
+			key: addApiKey(),
 			maxResults: 50,
 			playlistId: playlistId,
 			pageToken: token
