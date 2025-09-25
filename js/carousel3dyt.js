@@ -960,22 +960,20 @@ function Carousel3Dspirale() {
 		
 		function searchCells() {
 			init();
-			const searchlistvalue = searchlist.value.toUpperCase().split(" ");
-			for (i = 0; i < cells.length; i++) {
-				const title = cells[i].querySelector(".yttitle span");
-				if(!title) continue;
-				const txtValue = title.textContent || title.innerText;
-				const foundWords = searchlistvalue.filter(word => {
-					return txtValue.toUpperCase().includes(word);
-				});
-				if (foundWords.length > 0) {
-					cells[i].style.display = "";
-					scells.push(cells[i]);
-				} else {
-					cells[i].style.display = "none";
-				}
+			const searchlistvalue = searchlist.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/\s+/)  // coupe par espace.filter(w => w.length > 0); 
+			for (let i = 0; i < cells.length; i++) {
+			  const title = cells[i].querySelector(".yttitle span");
+			  if (!title) continue;
+			  const txtValue = title.textContent || title.innerText;
+			  const normText = txtValue.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+			  const foundWords = searchlistvalue.filter(word => normText.includes(word));
+			  if (foundWords.length > 0) {
+				cells[i].style.display = "";
+				scells.push(cells[i]);
+			  } else {
+				cells[i].style.display = "none";
+			  }
 			}
-			
 			if(searchlistvalue == ""){
 				cellIndex = window.oldcellcellIndex;
 				clearsearch.classList.remove("visibleclearsearch");
