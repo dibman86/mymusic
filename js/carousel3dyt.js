@@ -960,7 +960,7 @@ function Carousel3Dspirale() {
 		
 		function searchCells() {
 			init();
-			const searchlistvalue = searchlist.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/\s+/)  // coupe par espace.filter(w => w.length > 0); 
+			const searchlistvalue = searchlist.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/\s+/); 
 			for (let i = 0; i < cells.length; i++) {
 			  const title = cells[i].querySelector(".yttitle span");
 			  if (!title) continue;
@@ -1901,5 +1901,6 @@ function removeNotes(str){
 		},500);
 	}
 };
+
 
 const isiOS = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)/i) != null;
