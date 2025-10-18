@@ -261,7 +261,7 @@ function Carousel3Dspirale() {
 		let newcellindex;
 		let html = '';
 		for (let i = 0; i < data.length; i++) {
-			const title = data[i].snippet.title;
+			const title = data[i].snippet.title.replace(/\([^)]*\)|\[[^\]]*\]/g, '').trim();
 			const vid = data[i].snippet.resourceId.videoId;
 			let thumb;
 			if (videoid !== '') {
@@ -962,17 +962,18 @@ function Carousel3Dspirale() {
 			init();
 			const searchlistvalue = searchlist.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/\s+/); 
 			for (let i = 0; i < cells.length; i++) {
-			  const title = cells[i].querySelector(".yttitle span");
-			  if (!title) continue;
-			  const txtValue = title.textContent || title.innerText;
-			  const normText = txtValue.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-			  const foundWords = searchlistvalue.filter(word => normText.includes(word));
-			  if (foundWords.length > 0) {
-				cells[i].style.display = "";
-				scells.push(cells[i]);
-			  } else {
-				cells[i].style.display = "none";
-			  }
+				const cell = cells[i]; 
+				const title = cell.querySelector(".yttitle span");
+				if (!title) continue;
+				const txtValue = title.textContent || title.innerText;
+				const normText = txtValue.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+				const foundWords = searchlistvalue.filter(word => normText.includes(word));
+				if (foundWords.length > 0) {
+					cell.style.display = "block";
+					scells.push(cell);
+				} else {
+					cell.style.display = "none";
+				}
 			}
 			if(searchlistvalue == ""){
 				cellIndex = window.oldcellcellIndex;
@@ -1782,7 +1783,7 @@ function getSupportedPropertyName(properties) {
 const transformProperty = getSupportedPropertyName(propertiestransform);
 const borderRadiusProperty = getSupportedPropertyName(propertiesborderRadius);
 
-function whichAnimationEvent(){
+function whichAnimationEventEnd(){
 	const el = document.createElement("fakeelement");
 
 	const animations = {
@@ -1799,7 +1800,7 @@ function whichAnimationEvent(){
 		}
 	} 
 };
-const animationEvent = whichAnimationEvent();
+const animationEventEnd = whichAnimationEventEnd();
 
 function triggerEvent(el, type) {
 	if (!el) return;
@@ -1901,6 +1902,5 @@ function removeNotes(str){
 		},500);
 	}
 };
-
 
 const isiOS = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)/i) != null;
