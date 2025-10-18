@@ -500,7 +500,7 @@
 			}.bind(this);
 			
 			const createplayer = function() {
-				content.addEventListener(animationEvent, function(){
+				content.addEventListener(animationEventEnd, function(){
 					player = new YT.Player('ytplayer', {
 						events: {
 							'onReady': onPlayerReady,
