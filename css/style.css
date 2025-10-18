@@ -516,7 +516,7 @@ body {
 	filter : blur(100px);
 	opacity: 0;
 	//mix-blend-mode: color;
-	mix-blend-mode: multiply;
+	mix-blend-mode: color;
 }
 
 #video-fond .bg-image-overlay.bgopacity{
