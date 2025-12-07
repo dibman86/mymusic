@@ -207,7 +207,7 @@
 			let toogleclick = false;
 			let resultsplit = null;
 			let nextvaluesplit= -1;
-			const keyCodes = {96: 0,97: 1,98: 2,99: 3,100: 4,101: 5,102: 6,103: 7,104: 8,105: 9};
+			const keyCodes = {96: 0,97: 1,98: 2,99: 3,100: 4,101: 5,102: 6,103: 7,104: 8,105: 9,48: 0, 49: 1, 50: 2, 51: 3, 52: 4,53: 5, 54: 6, 55: 7, 56: 8, 57: 9};
 
 			function wheelvolume(e) {
 				if (playerready) {
@@ -999,7 +999,6 @@
 			this.keyupExecute = function(e) {
 				e.preventDefault();
 				const codekey = e.keyCode || e.which;
-				const percentage = keyCodes[codekey];
 				const activefocus = document.activeElement;
 				if(activefocus.classList.contains('searchlistbox')) return;
 				if (codekey === 13) {		
@@ -1033,7 +1032,8 @@
 				} else if (codekey === 82) {
 					tooglecheckbox(0);
 					cbvideoClick(true);
-				} else if (percentage !== undefined){
+				} else if ((codekey >= 96 && codekey <= 105) || (codekey >= 48 && codekey <= 57 && e.shiftKey)) {
+					const percentage = keyCodes[codekey];
 					setVideoTime(percentage);
 				} else if (codekey === 73){
 					if(window.isFullScreen) toggleFullScreenMode();
