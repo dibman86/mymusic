@@ -207,7 +207,7 @@
 			let toogleclick = false;
 			let resultsplit = null;
 			let nextvaluesplit= -1;
-			const keyCodes = {96: 0,97: 1,98: 2,99: 3,100: 4,101: 5,102: 6,103: 7,104: 8,105: 9,48: 0, 49: 1, 50: 2, 51: 3, 52: 4,53: 5, 54: 6, 55: 7, 56: 8, 57: 9};
+
 
 			function wheelvolume(e) {
 				if (playerready) {
@@ -258,10 +258,7 @@
 			})();
 
 			function verifcheck(v, b) {
-				let valuecheck = '',
-					valuecb,
-					valuenotif,
-					text;
+				let valuecheck = '',valuecb;
 				for (let i = 0; i < checkbox.length; i++) {
 					checkbox[i].checked ? valuecb = '1' : valuecb = '0';
 					addAttributeCheched(checkbox[i],valuecb)
@@ -270,22 +267,18 @@
 				
 				setCookie("valuecheckbox", valuecheck);
 
-				if (v === 'video') {
-					text = 'Répéter la video: ';
-					valuenotif = valuecheck[0];
-				} else if (v === 'playlist') {
-					text = 'Playlist automatique: ';
-					valuenotif = valuecheck[1];
-				} else if (v === 'shuffle') {
-					text = 'Lecture aléatoire: ';
-					valuenotif = valuecheck[2];
-				}
+				const notifMap = {
+					video:   { text: 'Répéter la video: ', index: 0 },
+					playlist:{ text: 'Playlist automatique: ', index: 1 },
+					shuffle: { text: 'Lecture aléatoire: ', index: 2 }
+				};
 
-				if (b && !content.classList.contains('open-setting')) {
-					Notification(text, valuenotif);
+				if (b && !content.classList.contains('open-setting') && notifMap[v]) {
+					const { text, index } = notifMap[v];
+					Notification(text, valuecheck[index]);
 				}
 			};
-
+			
 			function tooglecheckbox(n) {
 				if (checkbox[n].checked) {
 					checkbox[n].checked = false;
@@ -474,7 +467,8 @@
 					}, 200); 
 				});
 				videoContainer.addEventListener('pointerup',function(e) {endHolding(e)});
-				videoContainer.addEventListener('pointercancel',function(e) {endHolding(e)});videoContainer.addEventListener('pointerleave',function(e) {endHolding(e)});
+				videoContainer.addEventListener('pointercancel',function(e) {endHolding(e)});
+				videoContainer.addEventListener('pointerleave',function(e) {endHolding(e)});
 				
 				timelineContainer.addEventListener("pointermove", handleTimelineUpdate);
 				timelineContainer.addEventListener("pointerdown", toggleScrubbing);
@@ -490,9 +484,6 @@
 					e.stopPropagation();
 					if (isScrubbing) handleTimelineUpdate(e);
 				});
-				
-				
-				
 				
 				videoContainer.classList.add("playerready");
 				playerready = true;
@@ -972,72 +963,123 @@
 				this.toggleMiniLecteure();
 			}.bind(this), false);
 			
+			let holdTimerKey = null;
+			let isHoldingKey = false;
 			this.keydownExecute = function(e) {
 				const codekey = e.keyCode || e.which;
-				let duration;
 				const focused = document.activeElement;
-				focused === thumbIndicator? duration = 1 : duration = 10;
-				if (codekey === 37) {
-					skip(-duration);
-				} else if (codekey === 39) {
-					skip(duration);
+				const duration = (focused === thumbIndicator) ? 1 : 10;
+
+				const skipMap = {
+					37: -duration,
+					39: duration
+				};
+				if (skipMap[codekey] !== undefined) {
+					skip(skipMap[codekey]);
 				}
-				if (codekey === 109) {
-					volumeChange(-1);
-				} else if (codekey === 107) {
-					volumeChange(1);
+
+				const volumeMap = {
+					109: -1,
+					107: 1,
+					'-': -1,
+					'_': -1,
+					'+': 1,
+					'=': 1 
+				};
+				let delta = volumeMap[codekey] ?? volumeMap[e.key];
+				if (delta !== undefined) {
+					volumeChange(delta);
 				}
-				if(fsChange()){
-					if (codekey === 40) {
-						triggerEvent(nextvideo, 'click');
-					} else if (codekey === 38) {
-						triggerEvent(previousvideo, 'click');
+
+				if (fsChange()) {
+					const fsMap = {
+						38: previousvideo,
+						40: nextvideo
+					};
+					if (fsMap[codekey]) {
+						triggerEvent(fsMap[codekey], 'click');
 					}
 				}
-			};
+				if (codekey === 32 && !e.repeat){
+					isHoldingKey = false;
+					holdTimerKey = setTimeout(function(){
+						isHoldingKey = true;
+						if(window.isplayerpaused) player.playVideo();
+						player.setPlaybackRate(2);
+						Notification("Vitesse: ","x2",true);
+					}, 300);
+				}
+			}.bind(this);
 			
 			this.keyupExecute = function(e) {
 				e.preventDefault();
+				if(e.repeat) return;
 				const codekey = e.keyCode || e.which;
 				const activefocus = document.activeElement;
-				if(activefocus.classList.contains('searchlistbox')) return;
-				if (codekey === 13) {		
-					if (activefocus.type === "checkbox") {
-						if (activefocus.id === "loop-video") {
-							tooglecheckbox(0);
-							cbvideoClick(true);
-						} else if (activefocus.id === "loop-playlist") {
-							tooglecheckbox(1);
-							cbplaylistClick(true);
-						} else if (activefocus.id === "shuffle-playlist") {
-							tooglecheckbox(2);
-							cbshuffleClick(true);
-						}
+				let percentage = null;
+
+				if (activefocus.classList.contains('searchlistbox')) return;
+
+				if (codekey === 13 && activefocus.type === "checkbox") {
+					const checkboxMap = {
+						"loop-video": [0, cbvideoClick],
+						"loop-playlist": [1, cbplaylistClick],
+						"shuffle-playlist": [2, cbshuffleClick]
+					};
+					const mapEntry = checkboxMap[activefocus.id];
+					if (mapEntry) {
+						const [index, callback] = mapEntry;
+						tooglecheckbox(index);
+						callback(true);
 					}
-				} else if (codekey === 32 || codekey === 75) {
-					playAndpause(e);
-				} else if (codekey === 79) {
-					toogleSetting(true);
-				} else if (codekey === 70) {
-					if(window.isMinimised) this.toggleMiniLecteure();
-					toggleFullScreenMode();
-				} else if (codekey === 83) {
-					toggleMute();
-				} else if (codekey === 76) {
-					tooglecheckbox(2);
-					cbshuffleClick(true);
-				} else if (codekey === 80) {
-					tooglecheckbox(1);
-					cbplaylistClick(true);
-				} else if (codekey === 82) {
-					tooglecheckbox(0);
-					cbvideoClick(true);
-				} else if ((codekey >= 96 && codekey <= 105) || (codekey >= 48 && codekey <= 57 && e.shiftKey)) {
-					const percentage = keyCodes[codekey];
+				}
+
+				const keyActionMap = {
+					75: playAndpause,
+					79: () => toogleSetting(true),
+					70: () => {
+						if (window.isMinimised) this.toggleMiniLecteure();
+						toggleFullScreenMode();
+					},
+					83: toggleMute,
+					76: () => {
+						tooglecheckbox(2);
+						cbshuffleClick(true);
+					},
+					80: () => {            // P
+						tooglecheckbox(1);
+						cbplaylistClick(true);
+					},
+					82: () => {
+						tooglecheckbox(0);
+						cbvideoClick(true);
+					},
+					73: () => {
+						if (window.isFullScreen) toggleFullScreenMode();
+						this.toggleMiniLecteure();
+					}
+				};
+
+				if (keyActionMap[codekey]) {
+					keyActionMap[codekey](e);
+					return;
+				}
+
+				if ((codekey >= 96 && codekey <= 105) || (codekey >= 48 && codekey <= 57 && e.shiftKey)) {
+					percentage = keyCodes[codekey];
 					setVideoTime(percentage);
-				} else if (codekey === 73){
-					if(window.isFullScreen) toggleFullScreenMode();
-					this.toggleMiniLecteure();
+				}
+				
+				if (codekey === 32){
+					clearTimeout(holdTimerKey);
+					if (isHoldingKey) {
+						if(window.isplayerpaused) player.pauseVideo();
+							player.setPlaybackRate(1);
+							isHoldingKey = false;
+							Notification("Vitesse: ","x1");
+					} else {
+						playAndpause();
+					}
 				}
 			}.bind(this);
 
@@ -1088,7 +1130,6 @@
 			wrapper.classList.add('mediabox-hide');
 			this.root.classList.add('hide-box');
 			window.mediaboxPlayer = null;
-			window.mediaboxopen = false;
 			if(!window.isMinimised){
 				this.root.classList.remove('minilecteur');
 				window.isMinimised = false;
@@ -1110,6 +1151,7 @@
 				}
 				cell.classList.remove('en_lecture');
 				this.root.classList.remove('stop-scroll', 'hide-box');
+				window.mediaboxopen = false;
 				if(wrapper.parentElement) this.root.removeChild(wrapper);
 				this.root.removeEventListener('keydown', this.keydownExecute, false);
 				this.root.removeEventListener('keyup', this.keyupExecute, false);
