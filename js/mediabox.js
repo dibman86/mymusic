@@ -621,10 +621,10 @@
 					var invisiblecelllenght = wrapper.querySelectorAll('.grid .cell-grid .cell.invisible').length;
 					if(bgoverlaydiff !== nextvaluesplit){
 						for (let i = 0; i < invisiblecelllenght ; i++) {
-							resultsplit[0].cells[i].classList.remove('invisible');
+							if(resultsplit[0].cells[i]) resultsplit[0].cells[i].classList.remove('invisible');
 						}
 						for (let i = 0; i < bgoverlaydiff; i++) {
-							resultsplit[0].cells[i].classList.add('invisible');
+							if(resultsplit[0].cells[i]) resultsplit[0].cells[i].classList.add('invisible');
 						}
 						nextvaluesplit = bgoverlaydiff;
 					}
@@ -965,6 +965,7 @@
 			
 			let holdTimerKey = null;
 			let isHoldingKey = false;
+			
 			this.keydownExecute = function(e) {
 				const codekey = e.keyCode || e.which;
 				const focused = document.activeElement;

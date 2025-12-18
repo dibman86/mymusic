@@ -1164,56 +1164,40 @@ function Carousel3Dspirale() {
 		addlistnerButtom(prevButton,previous,'previous');
 		
 		function raccourciecheckbox(str) {
-			let valuecookie = checkCookie('valuecheckbox');
-			if (valuecookie.length === 0) valuecookie = '000';
-			let valuecb0 = valuecookie[0];
-			let valuecb1 = valuecookie[1];
-			let valuecb2 = valuecookie[2];
-			let valuenotif,text;
-			
-			if (str === 'video') {
-				text = 'Répéter la video: ';
-				if (valuecb0 === '0') {
-					valuecb0 = '1';
-					valuecb1 = '0';
-					valuecb2 = '0';
-					valuenotif = '1';
-				} else {
-					valuecb0 = '0';
-					valuecb1 = '0';
-					valuecb2 = '0';
-					valuenotif = '0';
+			let valuecookie = checkCookie('valuecheckbox') || '000';
+			let values = ['0','0','0'];
+
+			const map = {
+				video:   { index: 0, text: 'Répéter la video: ' },
+				playlist:{ index: 1, text: 'Playlist automatique: ' },
+				shuffle: { index: 2, text: 'Lecture aléatoire: ' }
+			};
+
+			const entry = map[str];
+			if (!entry) return;
+
+			const { index, text } = entry;
+			let valuenotif;
+
+			if (valuecookie[index] === '0') {
+				if (str === 'shuffle') {
+					values[1] = '1';
+					values[2] = '1';
+				} else if (str === 'playlist') {
+					values[1] = '1';
+				} else if (str === 'video') {
+					values[0] = '1';
 				}
-			} else if (str === 'playlist') {
-				text = 'Playlist automatique: ';
-				if (valuecb1 === '0') {
-					valuecb0 = '0';
-					valuecb1 = '1';
-					valuenotif = '1';
-				} else {
-					valuecb0 = '0';
-					valuecb1 = '0';
-					valuecb2 = '0';
-					valuenotif = '0';
-				}
-			} else if (str === 'shuffle') {
-				text = 'Lecture aléatoire: ';
-				if (valuecb2 === '0') {
-					valuecb0 = '0';
-					valuecb1 = '1';
-					valuecb2 = '1';
-					valuenotif = '1';
-				} else {
-					valuecb0 = '0';
-					valuecb2 = '0';
-					valuenotif = '0';
-				}
+				valuenotif = '1';
+			} else {
+				valuenotif = '0';
 			}
 
-			valuecookie = valuecb0 + valuecb1 + valuecb2;
+			valuecookie = values.join('');
 			setCookie("valuecheckbox", valuecookie);
 			Notification(text, valuenotif);
-		};
+		}
+
 
 		document.addEventListener('keydown', function(e) {
 			const codekey = e.keyCode || e.which;
