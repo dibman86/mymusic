@@ -144,16 +144,20 @@
 									<td><kbd>r</kbd></td>
 								</tr>
 								<tr>
-									<th>Playlist Auto</th>
+									<th>Playlist auto</th>
 									<td><kbd>p</kbd></td>
 								</tr>
 								<tr>
-									<th>Lecture Aléatoire</th>
+									<th>Lecture aléatoire</th>
 									<td><kbd>l</kbd></td>
 								</tr>
 								<tr>
 									<th>Play/Pause vidéo (vidéo Pop-up ouverte)</th>
 									<td><kbd>k</kbd>&nbsp;ou&nbsp;<kbd>Espace</kbd></td>
+								</tr>
+								<tr>
+									<th>Vitesse de lecture video X2 (vidéo Pop-up ouverte) mintenire la touche</th>
+									<td><kbd>Espace</kbd></td>
 								</tr>
 								<tr>
 									<th>Activer/Désactiver le son (vidéo Pop-up ouverte)</th>
@@ -217,7 +221,7 @@
 			};
 			const browserPrefix = getBrowserPrefix();
 			function handleVisibilityChange() {
-				if (document[getHiddenPropertyName(browserPrefix )]) {
+				if (document[getHiddenPropertyName(browserPrefix)]) {
 					bgvideo.pause();
 				} else {
 					bgvideo.play();
