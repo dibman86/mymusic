@@ -1,5 +1,5 @@
 function addApiKey() {
-	return 'AIzaSyDhs-FfhK_oGfp0iAL0FDLx9ccI7aIZidk';
+	return process.env.GOOGLE_API_KEY;
 }
 function addPlaylist() {
 	return	[
@@ -33,4 +33,5 @@ function addPlaylist() {
 				}
 			];
 }	
+
 
