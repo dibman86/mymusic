@@ -1,5 +1,5 @@
 function addApiKey() {
-	return GOOGLE_API_KEY;
+	return 'AIzaSyDhs-FfhK_oGfp0iAL0FDLx9ccI7aIZidk';
 }
 function addPlaylist() {
 	return	[
@@ -33,6 +33,7 @@ function addPlaylist() {
 				}
 			];
 }	
+
 
 
 
