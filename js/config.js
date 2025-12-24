@@ -12,6 +12,10 @@ function addPlaylist() {
 					idplaylist:'PLUgDwadmi7twMN3bvUrJdgkcbhalu9vQ6'
 				},
 				{
+					name:'Gnawa Guembri Cover',
+					idplaylist:'PLVBYjI-43snJlNuLmiBXnSoxnCrJIMVGJ'
+				},
+				{
 					name:'Top 50 This Week & Top 100 Songs ' + window.year,
 					idplaylist:'PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG'
 				},
