@@ -1,5 +1,5 @@
 function addApiKey() {
-	return process.env.GOOGLE_API_KEY;
+	return GOOGLE_API_KEY;
 }
 function addPlaylist() {
 	return	[
@@ -33,5 +33,6 @@ function addPlaylist() {
 				}
 			];
 }	
+
 
 
