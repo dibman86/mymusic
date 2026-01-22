@@ -144,7 +144,7 @@ function Carousel3Dspirale() {
 		const url = 'https://www.googleapis.com/youtube/v3/playlistItems';
 		const options = {
 			part: 'snippet',
-			key: "__API_KEY__";,
+			key: "__API_KEY__",
 			maxResults: 50,
 			playlistId: playlistId,
 			pageToken: token
@@ -1889,3 +1889,4 @@ function removeNotes(str){
 
 
 const isiOS = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)/i) != null;
+
