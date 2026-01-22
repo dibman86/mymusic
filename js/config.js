@@ -1,6 +1,3 @@
-function addApiKey() {
-	return 'AIzaSyDhs-FfhK_oGfp0iAL0FDLx9ccI7aIZidk';
-}
 function addPlaylist() {
 	return	[
 				{
@@ -33,6 +30,7 @@ function addPlaylist() {
 				}
 			];
 }	
+
 
 
 
