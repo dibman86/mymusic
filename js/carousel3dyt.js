@@ -144,7 +144,7 @@ function Carousel3Dspirale() {
 		const url = 'https://www.googleapis.com/youtube/v3/playlistItems';
 		const options = {
 			part: 'snippet',
-			key: addApiKey(),
+			key: "__API_KEY__";,
 			maxResults: 50,
 			playlistId: playlistId,
 			pageToken: token
@@ -1886,5 +1886,6 @@ function removeNotes(str){
 		},500);
 	}
 };
+
 
 const isiOS = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)/i) != null;
