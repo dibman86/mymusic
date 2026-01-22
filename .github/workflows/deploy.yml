@@ -1,0 +1,21 @@
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches: [ main ] # Vérifiez si votre branche s'appelle main ou master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Cette ligne remplace __API_KEY__ par votre secret GitHub dans votre script.js
+      - name: Inject API Key
+        run: sed -i "s/__API_KEY__/${{ secrets.YOUTUBE_API_KEY }}/g" script.js
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: . 
+          branch: gh-pages
