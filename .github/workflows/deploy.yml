@@ -12,7 +12,7 @@ jobs:
 
       # Cette ligne remplace __API_KEY__ par votre secret GitHub dans votre script.js
       - name: Inject API Key
-        run: sed -i "s/__API_KEY__/${{ secrets.YOUTUBE_API_KEY }}/g" script.js
+        run: sed -i "s/__API_KEY__/${{ secrets.YOUTUBE_API_KEY }}/g" carousel3dyt.js
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
