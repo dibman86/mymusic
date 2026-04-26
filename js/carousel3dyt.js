@@ -261,7 +261,14 @@ function Carousel3Dspirale() {
 		let newcellindex;
 		let html = '';
 		for (let i = 0; i < data.length; i++) {
-			const title = data[i].snippet.title.replace(/\([^)]*\)|\[[^\]]*\]/g, '').trim();
+			let title = data[i].snippet.title.replace(/\s*[\(\[][^()\[\]]*[\)\]]/gi,function(match) {
+				if (/feat|ft/i.test(match)) {
+					return match; // On ne touche à rien, on garde le texte
+				}
+				return "";
+			});
+
+			title = title.replace(/\s\s+/g, ' ').trim();
 			const vid = data[i].snippet.resourceId.videoId;
 			let thumb;
 			if (videoid !== '') {
