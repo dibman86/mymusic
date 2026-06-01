@@ -104,6 +104,7 @@
 					playflicker();
 				}.bind(this),nbr)
 			}.bind(this);
+			
 			Array.prototype.forEach.call(this.selector, function(el) {
 				if (el.dataset.click === 'false') {
 					el.dataset.click = 'true';
@@ -207,6 +208,7 @@
 			let toogleclick = false;
 			let resultsplit = null;
 			let nextvaluesplit= -1;
+			const keyCodes = {96: 0,97: 1,98: 2,99: 3,100: 4,101: 5,102: 6,103: 7,104: 8,105: 9};
 
 
 			function wheelvolume(e) {
