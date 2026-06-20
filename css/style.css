@@ -1555,7 +1555,7 @@ footer a:focus {
 	position: relative;
 	top: -100px;
 	margin: auto;
-	width: 150px;
+	width: 250px;
 	height: 34px;
 	background: #000;
 	color: #fff;
@@ -1572,12 +1572,8 @@ footer a:focus {
 	z-index: 999;
 }
 
-.scene-loaded #searchbox{
-	top :5px;
-}
-
-.stop-scroll.minilecteur #searchbox{
-	top :5px;
+.scene-loaded #searchbox,.stop-scroll.minilecteur #searchbox{
+	top : 15px;
 }
 
 .stop-scroll #searchbox{
@@ -1656,9 +1652,6 @@ footer a:focus {
 #searchbox:focus-within{
 	outline: 4px dotted #fff;
 	outline-offset: -6px;
-}
-
-#searchbox:focus-within{
 	-webkit-transform: scale(1.05);
 	-moz-transform: scale(1.05);
 	-o-transform: scale(1.05);
