@@ -453,6 +453,7 @@ body {
 	border-right: none;
 	font-size: 5vw;
 	font-weight: bold;
+	line-height: 1;
 	text-shadow: -1px 1px 0 #fff, 1px 1px 0 #fff, 1px -1px 0 #fff, -1px -1px 0 #fff;
 	-webkit-animation: changeopacity .5s;
 	-moz-animation: changeopacity .5s;
