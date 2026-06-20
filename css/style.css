@@ -3204,7 +3204,9 @@ footer a:focus {
 	width: 44px;
 	height: 72px;
 	right: -100%;
-	bottom: 50%;
+	top: 0;
+	bottom: 0;
+	margin: auto;
 	-webkit-transition: right .25s ease-in-out;
 	-o-transition: right .25s ease-in-out;
 	-moz-transition: right .25s ease-in-out;
