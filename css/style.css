@@ -1574,7 +1574,7 @@ footer a:focus {
 }
 
 .scene-loaded #searchbox,.stop-scroll.minilecteur #searchbox{
-	top : 15px;
+	top : 8px;
 }
 
 .stop-scroll #searchbox{
@@ -4112,7 +4112,7 @@ kbd {
 	}
 	
 	.scene-loaded #searchbox.open{
-		top: 5px!important;
+		top: 8px!important;
 	}
 	
 	.no-mobile .stop-scroll.minilecteur .btn-up{
