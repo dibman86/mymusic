@@ -522,7 +522,8 @@ function Carousel3Dspirale() {
 				link.classList.add('player-error');
 				return;
 			}
-			source += '?enablejsapi=1&amp;controls=0&amp;showinfo=0&amp;cc_load_policy=0&amp;iv_load_policy=3&amp;modestbranding=1&amp;rel=0&amp;autoplay=0&amp;loop=0&amp;disablekb=1&amp;autohide:0&amp;mute=1&amp;fa=0';
+			const currentOrigin = encodeURIComponent(window.location.origin);
+			source += '?enablejsapi=1&amp;controls=0&amp;showinfo=0&amp;cc_load_policy=0&amp;iv_load_policy=3&amp;modestbranding=1&amp;rel=0&amp;autoplay=0&amp;loop=0&amp;disablekb=1&amp;autohide:0&amp;mute=1&amp;fa=0;origin=' + currentOrigin +';';
 			const iframe = '<iframe id="cellplayer" src="' + source + '" allowfullscreen="1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" title="YouTube video player"  frameborder="0" tabindex="-1"></iframe><div class="cellplayer_cache"></div></div><button type="button" class="btn-mute default-click not-hide" title="Activer le son" tabindex="-1"><i class="fa fa-volume-mute not-hide"></i></button><div class="timeline-container not-hide" role="slider" aria-label="Barre de lecture"><div class="timeline not-hide"><div class="current-time"></div><div class="thumb-indicator not-hide"></div></div>';
 			iframeparent.insertAdjacentHTML('beforeend', iframe);
 			
