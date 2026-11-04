@@ -270,25 +270,20 @@ function Carousel3Dspirale() {
 
 			title = title.replace(/\s\s+/g, ' ').trim();
 			const vid = data[i].snippet.resourceId.videoId;
-			let thumb;
 			if (videoid !== '') {
 				if (videoid === vid) {
 					newcellindex = i;
 				}
 			}
-			if (!isEmpty(data[i].snippet.thumbnails)) {
-				if (data[i].snippet.thumbnails.hasOwnProperty('standard')) {
-					thumb = data[i].snippet.thumbnails.standard.url;
-				} else if (data[i].snippet.thumbnails.hasOwnProperty('medium')) {
-					thumb = data[i].snippet.thumbnails.medium.url;
-				} else {
-					thumb = data[i].snippet.thumbnails.default.url;
-				}
+			let thumbnails = data[i].snippet.thumbnails,thumb;
+			if (!isEmpty(thumbnails)) {
+				thumb = (thumbnails.medium && thumbnails.medium.url) || (thumbnails.high && thumbnails.high.url) || (thumbnails.default && thumbnails.default.url);
 			} else {
 				data.splice(i, 1);
 				i--;
 				continue;
 			}
+			let defaultThumb = thumbnails.default ? thumbnails.default.url : '';
 			const div =
 				'<div class="carousel__cell" data-style="false"><div class="wrap-cell"><div class="wrap-cell-overlay" style="background-image:url(' + thumb + ');"></div><a class="ytlink mediabox" data-click="false" data-img="' + thumb + '" data-globalid="' + (playlistId + ',' + vid) + '" data-currenttime="0" href="https://www.youtube-nocookie.com/embed/' + vid + '" rel="noopener noreferrer nofollow" target="_blank" ondragstart="return false;"><div class="cell loading_img"><img src="' + thumb + '" alt="" loading="lazy"></div><div class="carousel-glare"></div><div class="yttitle" translate="no"><span>' + title + '</span></div><div class="flashlight"></div><div class="blockqr"><button type="button" class="btn_qr fa fa-times default-click not-hide"  title="Afficher QR Code">QR</button><div class="container_qr default-click"><div class="container_imgqr loading_img"><img class="video_qr" src="https://quickchart.io/qr?text=https%3A%2F%2Fyoutu.be%2F' + vid + 'DPxL7dO5XPc&light=ff0000&dark=ffffff&margin=6&size=140&format=svg" alt="QR CODE"></div><div class="text_qr">SCANNE MOI</div></div></div></a></div></div>';
 			html = html + div;
