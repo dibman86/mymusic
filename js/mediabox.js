@@ -10,7 +10,12 @@
 }(this, function() {
 	"use strict";
 	
-	addCss(['css/mediabox.css', 'https://unpkg.com/splitting/dist/splitting.css', 'https://unpkg.com/splitting/dist/splitting-cells.css']);
+	const giftofspeed = document.createElement('link');
+	giftofspeed.rel = 'stylesheet';
+	giftofspeed.href = 'css/mediabox.css?v=1';
+	giftofspeed.media = 'screen';
+	const godefer = document.getElementsByTagName('link')[0];
+	godefer.parentNode.insertBefore(giftofspeed, godefer);
 	
 	function addCss(links){
 		for (const el of links) {
@@ -43,9 +48,8 @@
 				loop: '1',
 				disablekb: '1',
 				autohide: '0',
-				fs: '0',
+				fs: '0'
 			}
-			
 			params = params || 0;
 			
 		if (!this || !(this instanceof MediaBox)) {
